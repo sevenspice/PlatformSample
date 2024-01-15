@@ -72,10 +72,6 @@ block_2:setPosition(18, 11)
 
 local blocks = { block_1, block_2 }
 
---
--- コールバック
---
--- ゲームループ
 function playdate.update()
     clearDisplay()
 
