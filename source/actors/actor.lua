@@ -11,16 +11,22 @@ function Actor:init(_stageRect, _zindex, _groupIds)
     self.x = 0
     self.y = 0
     self.floorPosition = 0
-    self.idlePath = "images/spritesheets/" .. self.className:lower() .. "/idle"
 end
 
 function Actor:commonSpriteSettings()
+    if self.currentSprite then
+        self.currentSprite:remove()
+    end
+
+    self.currentSprite = playdate.graphics.sprite.new(self.currentLoop:image())
     self.currentSprite:setCenter(0, 0)
     self.currentSprite:setZIndex(self.zindex)
     self.currentSprite:setGroups(self.groupIds)
     self.currentSprite:setCollidesWithGroups(self.groupIds)
     -- https://sdk.play.date/2.1.1/Inside%20Playdate.html#m-graphics.sprite.setCollideRect
     self.currentSprite:setCollideRect(0, 0, self.currentSprite:getSize())
+    self.currentSprite.collisionResponse = playdate.graphics.sprite.kCollisionTypeFreeze
+
     self.currentSprite:moveTo(self.x, self.y)
 end
 

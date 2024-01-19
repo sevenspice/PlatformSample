@@ -17,6 +17,7 @@ function Player:init(_stageRect, _zindex, _groupIds, _jumpPower, _speed)
 
     self.idleFrametime = 200
     self.walkFrametime = 200
+    self.idlePath = "images/spritesheets/" .. self.className:lower() .. "/idle"
     self.walkPath = "images/spritesheets/" .. self.className:lower() .. "/walk"
 
     self.jumpping = false
@@ -164,17 +165,9 @@ end
 
 function Player:idle()
     if not (self.state == self.states.idle) then
-
-        if self.currentSprite then
-            self.currentSprite:remove()
-        end
-
         self.currentImagetable = playdate.graphics.imagetable.new(self.idlePath)
         self.currentLoop = playdate.graphics.animation.loop.new(self.idleFrametime, self.currentImagetable, true)
-        self.currentSprite = playdate.graphics.sprite.new(self.currentLoop:image())
-        self:commonSpriteSettings()
-
-        self.currentSprite.collisionResponse = playdate.graphics.sprite.kCollisionTypeFreeze
+        self:commonSpriteSettings(idlePath, self.walkFrametime, true)
     end
 
     self.currentSprite.update = function()
@@ -191,17 +184,9 @@ end
 
 function Player:walk()
     if not (self.state == self.states.walk) then
-
-        if self.currentSprite then
-            self.currentSprite:remove()
-        end
-
         self.currentImagetable = playdate.graphics.imagetable.new(self.walkPath)
         self.currentLoop = playdate.graphics.animation.loop.new(self.walkFrametime, self.currentImagetable, true)
-        self.currentSprite = playdate.graphics.sprite.new(self.currentLoop:image())
         self:commonSpriteSettings()
-
-        self.currentSprite.collisionResponse = playdate.graphics.sprite.kCollisionTypeFreeze
     end
 
     self.currentSprite.update = function()

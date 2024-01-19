@@ -8,6 +8,8 @@ function Block:init(_stageRect, _zindex, _groupIds, _weight)
     }
 
     self.idleFrametime = 200
+    self.idlePath = "images/spritesheets/" .. self.className:lower() .. "/idle"
+
     self.weight = _weight or 5
 end
 
@@ -25,10 +27,7 @@ function Block:idle()
 
         self.currentImagetable = playdate.graphics.imagetable.new(self.idlePath)
         self.currentLoop = playdate.graphics.animation.loop.new(self.idleFrametime, self.currentImagetable, true)
-        self.currentSprite = playdate.graphics.sprite.new(self.currentLoop:image())
-
         self:commonSpriteSettings()
-        self.currentSprite.collisionResponse = playdate.graphics.sprite.kCollisionTypeFreeze
     end
 
     self.currentSprite.update = function()

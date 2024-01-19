@@ -8,6 +8,7 @@ function Hart:init(_stageRect, _zindex, _groupIds)
     }
 
     self.idleFrametime = 200
+    self.idlePath = "images/spritesheets/" .. self.className:lower() .. "/idle"
 end
 
 function Hart:idle()
@@ -19,8 +20,6 @@ function Hart:idle()
 
         self.currentImagetable = playdate.graphics.imagetable.new(self.idlePath)
         self.currentLoop = playdate.graphics.animation.loop.new(self.idleFrametime, self.currentImagetable, true)
-        self.currentSprite = playdate.graphics.sprite.new(self.currentLoop:image())
-
         self:commonSpriteSettings()
     end
 
